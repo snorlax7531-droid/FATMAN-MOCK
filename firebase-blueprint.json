@@ -1,0 +1,136 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile in the mock test system",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "photoURL": { "type": "string", "maxLength": 512 },
+        "role": { "type": "string", "enum": ["student", "admin"] },
+        "createdAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Admin authorization entry",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 256 },
+        "addedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["email"]
+    },
+    "Test": {
+      "title": "Test",
+      "description": "A mock test definition",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 256 },
+        "subject": { "type": "string", "maxLength": 128 },
+        "chapter": { "type": "string", "maxLength": 128 },
+        "category": { "type": "string", "enum": ["subject_wise", "chapter_wise", "60_day_plan", "full_syllabus"] },
+        "dayNumber": { "type": "number" },
+        "durationMinutes": { "type": "number" },
+        "totalMarks": { "type": "number" },
+        "positiveMarks": { "type": "number" },
+        "negativeMarks": { "type": "number" },
+        "questionCount": { "type": "number" },
+        "instructions": { "type": "string", "maxLength": 4096 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "maxLength": 64 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["title", "subject", "category", "durationMinutes"]
+    },
+    "Question": {
+      "title": "Question",
+      "description": "Question within a test",
+      "type": "object",
+      "properties": {
+        "testId": { "type": "string", "maxLength": 128 },
+        "questionNumber": { "type": "number" },
+        "questionText": { "type": "string", "maxLength": 4096 },
+        "questionTextHindi": { "type": "string", "maxLength": 4096 },
+        "options": { "type": "array" },
+        "optionsHindi": { "type": "array" },
+        "correctOptionIndex": { "type": "number" },
+        "explanation": { "type": "string", "maxLength": 4096 },
+        "explanationHindi": { "type": "string", "maxLength": 4096 },
+        "topic": { "type": "string", "maxLength": 128 },
+        "difficulty": { "type": "string", "maxLength": 32 }
+      },
+      "required": ["questionText", "correctOptionIndex"]
+    },
+    "Attempt": {
+      "title": "Attempt",
+      "description": "Student test attempt result",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "userEmail": { "type": "string", "maxLength": 256 },
+        "userName": { "type": "string", "maxLength": 128 },
+        "testId": { "type": "string", "maxLength": 128 },
+        "testTitle": { "type": "string", "maxLength": 256 },
+        "subject": { "type": "string", "maxLength": 128 },
+        "score": { "type": "number" },
+        "totalMarks": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "timeTakenSeconds": { "type": "number" },
+        "correctCount": { "type": "number" },
+        "incorrectCount": { "type": "number" },
+        "unattemptedCount": { "type": "number" },
+        "answers": { "type": "array" },
+        "submittedAt": { "type": "string", "maxLength": 64 },
+        "status": { "type": "string", "enum": ["completed"] }
+      },
+      "required": ["userId", "testId", "score", "status"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "Saved question for revision",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "questionId": { "type": "string", "maxLength": 128 },
+        "testId": { "type": "string", "maxLength": 128 },
+        "questionText": { "type": "string", "maxLength": 4096 },
+        "options": { "type": "array" },
+        "correctOptionIndex": { "type": "number" },
+        "explanation": { "type": "string", "maxLength": 4096 },
+        "subject": { "type": "string", "maxLength": 128 },
+        "savedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["userId", "questionId", "questionText"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "List of system administrators"
+    },
+    "/tests/{testId}": {
+      "schema": { "$ref": "#/entities/Test" },
+      "description": "Published mock tests"
+    },
+    "/tests/{testId}/questions/{questionId}": {
+      "schema": { "$ref": "#/entities/Question" },
+      "description": "Questions belonging to a test"
+    },
+    "/attempts/{attemptId}": {
+      "schema": { "$ref": "#/entities/Attempt" },
+      "description": "Submitted test attempts"
+    },
+    "/bookmarks/{bookmarkId}": {
+      "schema": { "$ref": "#/entities/Bookmark" },
+      "description": "User bookmarked questions"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "FATMAN Mock Test - SSC GK/GS Exam Portal",
+  "description": "FATMAN Mock Test portal featuring TCS exam interface, 60-day study plan, subject & chapter wise mock tests, automated timer, performance analytics, and administrator management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
