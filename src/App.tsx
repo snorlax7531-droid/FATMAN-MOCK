@@ -21,6 +21,7 @@ import { SubjectChapterView } from './components/SubjectChapterView';
 import { SUBJECTS_CHAPTERS_DATA, getOrCreateChapterMockTest, ChapterItem, SubjectData } from './data/chaptersData';
 import fatmanBookCover from './assets/images/fatman_book_cover_1791546423682.jpg';
 import { TestService } from './services/testService';
+import { INITIAL_TESTS } from './data/initialData';
 import { TestModel, Question, AttemptModel, BookmarkModel, SubjectModel } from './types';
 import { 
   ShoppingBag, 
@@ -52,12 +53,26 @@ function MainApp() {
     }
   };
 
-  // Data states
-  const [tests, setTests] = useState<TestModel[]>([]);
-  const [userAttempts, setUserAttempts] = useState<AttemptModel[]>([]);
+  // Data states - Initialize with instant offline data to eliminate blank/buffering screens
+  const [tests, setTests] = useState<TestModel[]>(() => INITIAL_TESTS);
+  const [userAttempts, setUserAttempts] = useState<AttemptModel[]>(() => {
+    try {
+      const raw = localStorage.getItem('fatman_saved_attempts');
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
   const [allAttempts, setAllAttempts] = useState<AttemptModel[]>([]);
-  const [bookmarks, setBookmarks] = useState<BookmarkModel[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [bookmarks, setBookmarks] = useState<BookmarkModel[]>(() => {
+    try {
+      const raw = localStorage.getItem('fatman_saved_bookmarks');
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState(false);
 
   // Active TCS Exam State
   const [activeExam, setActiveExam] = useState<{ test: TestModel; questions: Question[] } | null>(null);
@@ -117,22 +132,31 @@ function MainApp() {
     });
   };
 
-  // Load all tests and data
+  // Load all tests and data asynchronously in parallel
   const loadInitialData = async () => {
     try {
-      const allTests = await TestService.getAllTests();
-      setTests(allTests);
-
       const effectiveUserId = userProfile?.uid || userProfile?.email || 'guest-aspirant';
-      const myAttempts = await TestService.getUserAttempts(effectiveUserId);
-      setUserAttempts(myAttempts);
-      const myBookmarks = await TestService.getUserBookmarks(effectiveUserId);
-      setBookmarks(myBookmarks);
+      const [allTestsResult, myAttemptsResult, myBookmarksResult, allAttsResult] = await Promise.allSettled([
+        TestService.getAllTests(),
+        TestService.getUserAttempts(effectiveUserId),
+        TestService.getUserBookmarks(effectiveUserId),
+        TestService.getAllAttempts()
+      ]);
 
-      const allAtts = await TestService.getAllAttempts();
-      setAllAttempts(allAtts);
+      if (allTestsResult.status === 'fulfilled' && allTestsResult.value?.length > 0) {
+        setTests(allTestsResult.value);
+      }
+      if (myAttemptsResult.status === 'fulfilled' && myAttemptsResult.value?.length > 0) {
+        setUserAttempts(myAttemptsResult.value);
+      }
+      if (myBookmarksResult.status === 'fulfilled' && myBookmarksResult.value?.length > 0) {
+        setBookmarks(myBookmarksResult.value);
+      }
+      if (allAttsResult.status === 'fulfilled' && allAttsResult.value?.length > 0) {
+        setAllAttempts(allAttsResult.value);
+      }
     } catch (e) {
-      console.error('Error loading initial data', e);
+      console.warn('Background sync notice:', e);
     } finally {
       setLoading(false);
     }
