@@ -19,6 +19,7 @@ import { SubjectManagementView } from './components/SubjectManagementView';
 import { ProfileModal } from './components/ProfileModal';
 import { SubjectChapterView } from './components/SubjectChapterView';
 import { SUBJECTS_CHAPTERS_DATA, getOrCreateChapterMockTest, ChapterItem, SubjectData } from './data/chaptersData';
+import fatmanBookCover from './assets/images/fatman_book_cover_1791546423682.jpg';
 import { TestService } from './services/testService';
 import { TestModel, Question, AttemptModel, BookmarkModel, SubjectModel } from './types';
 import { 
@@ -705,7 +706,7 @@ function MainApp() {
 
                     <div className="shrink-0 w-48 sm:w-56">
                       <img
-                        src="/src/assets/images/fatman_book_cover_1791546423682.jpg"
+                        src={fatmanBookCover}
                         alt="FATMAN Book"
                         referrerPolicy="no-referrer"
                         className="w-full h-auto rounded-2xl shadow-2xl drop-shadow-[0_20px_35px_rgba(244,63,94,0.4)]"

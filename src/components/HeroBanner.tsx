@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
+import fatmanBookCover from '../assets/images/fatman_book_cover_1791546423682.jpg';
 
 interface HeroBannerProps {
   onStartFullMock?: () => void;
@@ -82,7 +83,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onStartFullMock }) => {
           >
             {/* Real 3D Book Cover Image (No Zoom, Crisp & Natural) */}
             <img
-              src="/src/assets/images/fatman_book_cover_1791546423682.jpg"
+              src={fatmanBookCover}
               alt="FATMAN GK/GS Theory Book 2nd Edition by Parmar Sir"
               referrerPolicy="no-referrer"
               className="w-full h-auto rounded-2xl shadow-2xl shadow-black/80 drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] object-contain"
