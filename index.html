@@ -13,8 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>@keyframes spin{to{transform:rotate(360deg)}}.app-loader-spinner{animation:.8s linear infinite spin}</style>
-    <script type="module" crossorigin src="./assets/index-DRw0Pc9W.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-MT2Qn4G-.css">
+    <script type="module" crossorigin src="./assets/app.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index.css">
   </head>
   <body class="bg-slate-900 text-slate-100 antialiased">
     <div id="root">
@@ -24,6 +24,20 @@
         <p style="font-size: 13px; color: #94a3b8; max-width: 320px; margin: 0; line-height: 1.5;">Preparing TCS Exam Portal & Supabase Sync...</p>
       </div>
     </div>
+    <!-- Vite Development Entry Point -->
+    <!-- Automatic Production Bundle Loader for GitHub Pages main branch -->
+    <script>
+      (function() {
+        var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.port === '3000';
+        if (!isLocal) {
+          var s = document.createElement('script');
+          s.type = 'module';
+          s.crossOrigin = 'anonymous';
+          s.src = './assets/app.js';
+          document.head.appendChild(s);
+        }
+      })();
+    </script>
     <script>
       // Diagnostic fail-safe for GitHub Pages deployment
       window.addEventListener('error', function(e) {
