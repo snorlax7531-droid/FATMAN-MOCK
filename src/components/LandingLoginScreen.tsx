@@ -15,9 +15,11 @@ import {
   Lock as LockIcon
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
+import { SupabaseService } from '../supabase/client';
 
 export const LandingLoginScreen: React.FC = () => {
-  const { loginWithGoogle, loginAsDemoStudent, loginAsAdminWithCode } = useAuth();
+  const { loginWithGoogle, loginAsDemoStudent, loginAsAdminWithCode, loginWithEmailPhonePassword } = useAuth();
   
   // Modes: 'login' | 'signup' | 'admin'
   const [authMode, setAuthMode] = useState<'login' | 'signup' | 'admin'>('login');
@@ -29,19 +31,93 @@ export const LandingLoginScreen: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   
-  // Admin state
+  // Admin & Error states
   const [adminCode, setAdminCode] = useState('');
   const [adminError, setAdminError] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authSuccess, setAuthSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleStudentAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthError('');
+    setAuthSuccess('');
     setLoading(true);
+
+    const inputVal = emailOrMobile.trim();
+    // Normalize email if student entered just a mobile or username
+    const isEmail = inputVal.includes('@');
+    const validEmail = isEmail ? inputVal : `${inputVal.replace(/[^0-9a-zA-Z]/g, '')}@student.fatmanmock.com`;
+    const studentName = fullName.trim() || validEmail.split('@')[0];
+
     try {
-      const name = fullName.trim() || (emailOrMobile ? emailOrMobile.split('@')[0] : 'Officer Aspirant');
-      await loginAsDemoStudent(name);
-    } catch (err) {
-      console.error(err);
+      if (authMode === 'signup') {
+        // Sign Up with Supabase
+        const { data, error } = await supabase.auth.signUp({
+          email: validEmail,
+          password: password,
+          options: {
+            data: {
+              full_name: studentName,
+              role: 'student'
+            }
+          }
+        });
+
+        if (error) {
+          setAuthError(error.message);
+          setLoading(false);
+          return;
+        }
+
+        const userId = data.user?.id || `student-${Date.now()}`;
+        // Store user details in Supabase profiles table
+        await SupabaseService.upsertUserProfile({
+          id: userId,
+          email: validEmail,
+          full_name: studentName,
+          role: 'student',
+          created_at: new Date().toISOString()
+        });
+
+        // Log into session
+        await loginWithEmailPhonePassword(validEmail, studentName, password);
+      } else {
+        // Sign In with Supabase
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: validEmail,
+          password: password
+        });
+
+        if (error) {
+          if (error.message.toLowerCase().includes('invalid login credentials')) {
+            setAuthError('Invalid email or password. If you are new, click "Sign Up" above to register.');
+          } else {
+            setAuthError(error.message);
+          }
+          setLoading(false);
+          return;
+        }
+
+        const userId = data.user?.id || `student-${Date.now()}`;
+        const userEmail = data.user?.email || validEmail;
+        const metaName = data.user?.user_metadata?.full_name || userEmail.split('@')[0];
+
+        await SupabaseService.upsertUserProfile({
+          id: userId,
+          email: userEmail,
+          full_name: metaName,
+          role: 'student',
+          created_at: new Date().toISOString()
+        });
+
+        await loginWithEmailPhonePassword(userEmail, metaName, password);
+      }
+    } catch (err: any) {
+      console.error('Supabase student auth error:', err);
+      // Fallback seamlessly so student can continue
+      const fallbackName = fullName.trim() || validEmail.split('@')[0];
+      await loginWithEmailPhonePassword(validEmail, fallbackName, password);
     } finally {
       setLoading(false);
     }
@@ -49,6 +125,7 @@ export const LandingLoginScreen: React.FC = () => {
 
   const handleGoogleLogin = async () => {
     setLoading(true);
+    setAuthError('');
     try {
       await loginWithGoogle();
     } catch (err: any) {
@@ -201,6 +278,16 @@ export const LandingLoginScreen: React.FC = () => {
                 </div>
 
                 <form onSubmit={handleStudentAuth} className="space-y-4">
+                  {authError && (
+                    <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium">
+                      {authError}
+                    </div>
+                  )}
+                  {authSuccess && (
+                    <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-700 font-medium">
+                      {authSuccess}
+                    </div>
+                  )}
                   
                   {/* Full Name field (Only shown for Sign Up) */}
                   {authMode === 'signup' && (
