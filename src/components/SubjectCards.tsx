@@ -67,8 +67,8 @@ export const SubjectCards: React.FC<SubjectCardsProps> = ({
         </div>
       </div>
 
-      {/* Grid of 11 Colorful & Attractive Subject Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+      {/* Grid of 11 Colorful & Attractive Subject Cards (Grand on Laptop, Compact on Mobile/Tablet) */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5 xl:gap-6">
         {SUBJECTS_CHAPTERS_DATA.map((sub, idx) => {
           const Icon = sub.icon;
           const chapterCount = sub.chapters.length;
@@ -78,28 +78,28 @@ export const SubjectCards: React.FC<SubjectCardsProps> = ({
             <div
               key={sub.id}
               onClick={() => onSelectSubject(sub.id)}
-              className={`bg-gradient-to-b ${theme.bg} border-2 ${theme.border} rounded-3xl p-4 flex flex-col items-center text-center justify-between shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1.5 cursor-pointer relative overflow-hidden`}
+              className={`bg-gradient-to-b ${theme.bg} border-2 ${theme.border} rounded-2xl sm:rounded-3xl p-3 sm:p-4 lg:p-6 flex flex-col items-center text-center justify-between shadow-xs hover:shadow-xl transition-all duration-300 group hover:-translate-y-1.5 cursor-pointer relative overflow-hidden`}
             >
               {/* Subtle top header glow */}
               <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
               {/* Icon with colored badge background */}
-              <div className={`w-14 h-14 rounded-2xl ${sub.iconBg} ${sub.iconColor} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-md ring-4 ring-white/80`}>
-                <Icon className="w-7 h-7 stroke-[2.2]" />
+              <div className={`w-14 h-14 lg:w-16 lg:h-16 rounded-2xl lg:rounded-3xl ${sub.iconBg} ${sub.iconColor} flex items-center justify-center mb-3 lg:mb-4 group-hover:scale-110 transition-transform shadow-md ring-4 ring-white/80`}>
+                <Icon className="w-7 h-7 lg:w-8.5 lg:h-8.5 stroke-[2.2]" />
               </div>
 
               {/* Title & Count */}
-              <div className="space-y-1 mb-3.5 w-full">
-                <span className={`inline-block text-[10px] font-black px-2 py-0.5 rounded-full ${theme.badgeBg} uppercase tracking-wider`}>
+              <div className="space-y-1 mb-3.5 lg:mb-4 w-full">
+                <span className={`inline-block text-[10px] lg:text-xs font-black px-2 lg:px-2.5 py-0.5 lg:py-1 rounded-full ${theme.badgeBg} uppercase tracking-wider`}>
                   #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                 </span>
-                <h3 className="font-black text-slate-900 text-sm sm:text-base leading-tight group-hover:text-indigo-700 transition-colors">
+                <h3 className="font-black text-slate-900 text-sm sm:text-base lg:text-lg leading-tight group-hover:text-indigo-700 transition-colors">
                   {sub.name}
                 </h3>
-                <p className="text-[11px] font-bold text-slate-600">
+                <p className="text-[11px] lg:text-xs font-bold text-slate-600">
                   {sub.hindiName}
                 </p>
-                <div className="text-xs font-black text-indigo-700 pt-1">
+                <div className="text-xs lg:text-sm font-black text-indigo-700 pt-1">
                   {chapterCount} Chapters
                 </div>
               </div>
@@ -110,10 +110,10 @@ export const SubjectCards: React.FC<SubjectCardsProps> = ({
                   e.stopPropagation();
                   onSelectSubject(sub.id);
                 }}
-                className={`w-full py-2.5 px-3 rounded-2xl font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-indigo-500/20 transition-all cursor-pointer text-white ${theme.btnBg} group-hover:shadow-lg`}
+                className={`w-full py-2.5 lg:py-3.5 px-3 lg:px-4 rounded-2xl font-black text-xs lg:text-sm flex items-center justify-center gap-1.5 lg:gap-2 shadow-md shadow-indigo-500/20 transition-all cursor-pointer text-white ${theme.btnBg} group-hover:shadow-lg`}
               >
                 <span>View Chapters</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
               </button>
             </div>
           );

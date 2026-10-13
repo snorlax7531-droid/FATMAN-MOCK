@@ -57,28 +57,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   return (
-    <aside className="w-64 bg-[#0d121f] text-slate-200 flex flex-col justify-between shrink-0 h-full border-r border-slate-800/80 select-none overflow-y-auto">
+    <aside className="w-64 lg:w-72 xl:w-76 bg-[#0d121f] text-slate-200 flex flex-col justify-between shrink-0 h-full border-r border-slate-800/80 select-none overflow-y-auto">
       <div>
         {/* Brand Logo Header */}
-        <div className="p-5 flex items-center justify-between border-b border-slate-800/60">
+        <div className="p-5 lg:p-6 flex items-center justify-between border-b border-slate-800/60">
           <div 
-            className="flex items-center gap-3 cursor-pointer" 
+            className="flex items-center gap-3 lg:gap-3.5 cursor-pointer" 
             onClick={() => {
               setActiveTab('home');
               onCloseMobile?.();
             }}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-600 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-500/20 text-white shrink-0">
-              <BookOpen className="w-6 h-6 stroke-[2.2]" />
+            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-gradient-to-tr from-pink-600 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-500/20 text-white shrink-0">
+              <BookOpen className="w-6 h-6 lg:w-7 lg:h-7 stroke-[2.2]" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-black text-xl tracking-wider text-pink-500">FATMAN</span>
+                <span className="font-black text-xl lg:text-2xl tracking-wider text-pink-500">FATMAN</span>
               </div>
-              <div className="text-[11px] font-bold tracking-widest text-white leading-none">
+              <div className="text-[11px] lg:text-xs font-bold tracking-widest text-white leading-none">
                 MOCK TEST
               </div>
-              <div className="text-[9px] text-slate-400 font-medium tracking-tight mt-0.5">
+              <div className="text-[9px] lg:text-[10px] text-slate-400 font-medium tracking-tight mt-0.5">
                 Practice • Improve • Succeed
               </div>
             </div>
@@ -97,7 +97,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Navigation Items */}
-        <nav className="p-3 space-y-1.5 mt-2">
+        <nav className="p-3 lg:p-4 space-y-1.5 lg:space-y-2 mt-2">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -108,13 +108,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   setActiveTab(item.id);
                   onCloseMobile?.();
                 }}
-                className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-150 cursor-pointer ${
+                className={`w-full flex items-center gap-3.5 lg:gap-4 px-4 lg:px-4.5 py-3 lg:py-3.5 rounded-xl lg:rounded-2xl text-sm lg:text-base font-semibold transition-all duration-150 cursor-pointer ${
                   isActive
                     ? 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md shadow-pink-600/30 font-bold translate-x-0.5'
                     : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
                 }`}
               >
-                <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                <Icon className={`w-5 h-5 lg:w-5.5 lg:h-5.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
                 <span>{item.label}</span>
               </button>
             );
@@ -130,9 +130,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }
               onCloseMobile?.();
             }}
-            className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-150 text-slate-300 hover:text-white hover:bg-slate-800/60 cursor-pointer"
+            className="w-full flex items-center gap-3.5 lg:gap-4 px-4 lg:px-4.5 py-3 lg:py-3.5 rounded-xl lg:rounded-2xl text-sm lg:text-base font-semibold transition-all duration-150 text-slate-300 hover:text-white hover:bg-slate-800/60 cursor-pointer"
           >
-            <User className="w-5 h-5 text-slate-400" />
+            <User className="w-5 h-5 lg:w-5.5 lg:h-5.5 text-slate-400" />
             <span>My Profile</span>
           </button>
 
@@ -143,13 +143,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 setActiveTab('admin');
                 onCloseMobile?.();
               }}
-              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-150 mt-2 ${
+              className={`w-full flex items-center gap-3.5 lg:gap-4 px-4 lg:px-4.5 py-3 lg:py-3.5 rounded-xl lg:rounded-2xl text-sm lg:text-base font-semibold transition-all duration-150 mt-2 ${
                 activeTab === 'admin'
                   ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/30 font-bold'
                   : 'text-purple-300 hover:text-white hover:bg-purple-950/40 border border-purple-800/40'
               }`}
             >
-              <ShieldCheck className="w-5 h-5 text-purple-400" />
+              <ShieldCheck className="w-5 h-5 lg:w-5.5 lg:h-5.5 text-purple-400" />
               <div className="flex items-center justify-between flex-1">
                 <span>Admin Dashboard</span>
                 <span className="text-[10px] uppercase font-bold bg-purple-500/30 text-purple-200 px-1.5 py-0.5 rounded">Pro</span>
@@ -160,31 +160,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Sidebar Footer area */}
-      <div className="p-4 space-y-4">
+      <div className="p-4 lg:p-5 space-y-4">
         {/* Inspirational Banner with Smile Face */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#161c2d] p-4 text-center border border-slate-800 shadow-inner group hover:border-pink-500/30 transition-all duration-300">
+        <div className="relative overflow-hidden rounded-2xl lg:rounded-3xl bg-gradient-to-b from-slate-900/90 to-[#161c2d] p-4 lg:p-5 text-center border border-slate-800 shadow-inner group hover:border-pink-500/30 transition-all duration-300">
           <div className="absolute top-2 right-2 opacity-15 group-hover:opacity-35 transition-opacity">
-            <Sparkles className="w-10 h-10 text-pink-400" />
+            <Sparkles className="w-10 h-10 lg:w-12 lg:h-12 text-pink-400" />
           </div>
           
           {/* Smiley Face Design Avatar - Bright Shining Yellow */}
-          <div className="relative w-12 h-12 mx-auto mb-2 flex items-center justify-center">
+          <div className="relative w-12 h-12 lg:w-14 lg:h-14 mx-auto mb-2 lg:mb-3 flex items-center justify-center">
             {/* Bright yellow radiant glowing halo */}
             <div className="absolute inset-0 rounded-full bg-yellow-400/35 blur-md group-hover:bg-yellow-400/60 transition-all duration-300 animate-pulse" />
             
             {/* Circle container with golden yellow border & shine */}
-            <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-yellow-400/25 via-amber-400/20 to-yellow-500/10 border-2 border-yellow-400/80 group-hover:border-yellow-300 flex items-center justify-center text-yellow-300 group-hover:text-yellow-200 shadow-[0_0_15px_rgba(250,204,21,0.45)] group-hover:shadow-[0_0_22px_rgba(250,204,21,0.7)] group-hover:scale-105 transition-all duration-300">
-              <Smile className="w-6 h-6 stroke-[2.4] drop-shadow-[0_0_6px_rgba(253,224,71,0.9)] group-hover:rotate-6 transition-transform duration-300" />
+            <div className="relative w-11 h-11 lg:w-13 lg:h-13 rounded-full bg-gradient-to-br from-yellow-400/25 via-amber-400/20 to-yellow-500/10 border-2 border-yellow-400/80 group-hover:border-yellow-300 flex items-center justify-center text-yellow-300 group-hover:text-yellow-200 shadow-[0_0_15px_rgba(250,204,21,0.45)] group-hover:shadow-[0_0_22px_rgba(250,204,21,0.7)] group-hover:scale-105 transition-all duration-300">
+              <Smile className="w-6 h-6 lg:w-7 lg:h-7 stroke-[2.4] drop-shadow-[0_0_6px_rgba(253,224,71,0.9)] group-hover:rotate-6 transition-transform duration-300" />
               {/* Sweet warm blush cheeks */}
               <span className="absolute bottom-2.5 left-2 w-1.5 h-1 rounded-full bg-amber-400/70 blur-[0.5px]" />
               <span className="absolute bottom-2.5 right-2 w-1.5 h-1 rounded-full bg-amber-400/70 blur-[0.5px]" />
             </div>
           </div>
 
-          <p className="font-['Caveat',cursive] text-2xl font-bold text-white tracking-wide leading-tight group-hover:text-yellow-100 transition-colors">
+          <p className="font-['Caveat',cursive] text-2xl lg:text-3xl font-bold text-white tracking-wide leading-tight group-hover:text-yellow-100 transition-colors">
             Small Steps<br />Make Big Results
           </p>
-          <div className="w-16 h-1 bg-gradient-to-r from-yellow-400 via-pink-500 to-rose-400 rounded-full mx-auto mt-2" />
+          <div className="w-16 lg:w-20 h-1 bg-gradient-to-r from-yellow-400 via-pink-500 to-rose-400 rounded-full mx-auto mt-2" />
         </div>
 
         {/* User / Admin Access Footer */}

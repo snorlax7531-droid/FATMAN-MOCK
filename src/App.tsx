@@ -418,7 +418,7 @@ function MainApp() {
       {/* 1. Desktop Sidebar (in-flow flex column, collapsible) */}
       <div 
         className={`hidden md:flex shrink-0 transition-all duration-300 ease-in-out ${
-          desktopSidebarOpen ? 'w-64' : 'w-0 overflow-hidden'
+          desktopSidebarOpen ? 'w-64 lg:w-72 xl:w-76' : 'w-0 overflow-hidden'
         }`}
       >
         <Sidebar
@@ -552,7 +552,7 @@ function MainApp() {
             <>
               {/* TAB: HOME */}
               {activeTab === 'home' && (
-                <div className="space-y-8 max-w-7xl mx-auto">
+                <div className="space-y-8 max-w-7xl 2xl:max-w-[1560px] mx-auto">
                   {selectedSubjectIdForChapters ? (
                     /* When any Subject Card is clicked, show its full chapters view */
                     <SubjectChapterView

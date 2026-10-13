@@ -46,12 +46,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onStartFullMock }) => {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1d0b36] via-[#2c124d] to-[#140624] text-white p-5 sm:p-6 lg:p-7 shadow-xl border border-purple-900/40">
+    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1d0b36] via-[#2c124d] to-[#140624] text-white p-5 sm:p-6 lg:p-8 xl:p-10 shadow-xl border border-purple-900/40">
       {/* Ambient background glows */}
       <div className="absolute top-0 right-1/4 w-80 h-80 bg-pink-600/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10">
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10 xl:gap-12">
         
         {/* Left Side: 3D Book Mockup with Pure Movement Animation (NO ZOOM) */}
         <div 
@@ -70,7 +70,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onStartFullMock }) => {
 
           {/* 3D Moving Container (Fixed Scale 1, Pure Tilt) */}
           <div 
-            className="relative w-44 sm:w-52 md:w-56 lg:w-60 transform-gpu"
+            className="relative w-44 sm:w-52 md:w-56 lg:w-64 xl:w-72 transform-gpu"
             style={{
               transform: isHovered
                 ? `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`
@@ -92,40 +92,40 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onStartFullMock }) => {
         </div>
 
         {/* Center: Title & Subtitle */}
-        <div className="flex-1 text-center lg:text-left space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 border border-pink-500/40 text-pink-300 text-xs font-bold tracking-wider">
+        <div className="flex-1 text-center lg:text-left space-y-3 lg:space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 lg:px-4 py-1 lg:py-1.5 rounded-full bg-pink-500/20 border border-pink-500/40 text-pink-300 text-xs lg:text-sm font-bold tracking-wider">
             <span>PARMAR SSC</span>
-            <span className="w-1 h-1 rounded-full bg-pink-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-pink-400" />
             <span className="text-yellow-400">2ND EDITION</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-none">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-white leading-none">
             FATMAN
           </h1>
 
-          <div className="text-2xl sm:text-3xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-purple-300">
+          <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-purple-300">
             GK/GS TEST SERIES
           </div>
 
-          <p className="text-xs sm:text-sm text-slate-300 font-medium tracking-wide">
+          <p className="text-xs sm:text-sm lg:text-base text-slate-300 font-medium tracking-wide">
             Subject Wise <span className="text-pink-400 mx-1">|</span> Chapter Wise <span className="text-pink-400 mx-1">|</span> Previous Year <span className="text-pink-400 mx-1">|</span> Full Syllabus
           </p>
 
           <div className="pt-2 flex items-center justify-center lg:justify-start gap-3">
-            <span className="font-['Caveat',cursive] text-2xl sm:text-3xl text-pink-300 font-bold tracking-wide">
+            <span className="font-['Caveat',cursive] text-2xl sm:text-3xl lg:text-4xl text-pink-300 font-bold tracking-wide">
               Better Practice = Higher Score
             </span>
-            <svg className="w-8 h-8 text-pink-400 -rotate-12 hidden sm:block" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 lg:w-10 lg:h-10 text-pink-400 -rotate-12 hidden sm:block" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </div>
         </div>
 
         {/* Right Side: Features Checkmarks */}
-        <div className="w-full lg:w-72 bg-black/25 backdrop-blur-sm rounded-2xl p-5 border border-purple-500/20 space-y-3">
+        <div className="w-full lg:w-80 bg-black/25 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-5 lg:p-6 border border-purple-500/20 space-y-3 lg:space-y-3.5">
           {highlights.map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-200">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 stroke-[2.5]" />
+            <div key={idx} className="flex items-center gap-2.5 lg:gap-3 text-xs sm:text-sm lg:text-base font-semibold text-slate-200">
+              <CheckCircle2 className="w-4 h-4 lg:w-5 lg:h-5 text-emerald-400 shrink-0 stroke-[2.5]" />
               <span>{item}</span>
             </div>
           ))}
