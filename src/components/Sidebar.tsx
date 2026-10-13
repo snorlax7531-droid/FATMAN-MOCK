@@ -8,6 +8,7 @@ import {
   ShoppingBag, 
   BookOpen, 
   Target, 
+  Smile,
   ShieldCheck, 
   LogOut,
   Sparkles,
@@ -160,15 +161,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar Footer area */}
       <div className="p-4 space-y-4">
-        {/* Inspirational Banner matching photo */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#161c2d] p-4 text-center border border-slate-800 shadow-inner group">
-          <div className="absolute top-2 right-2 opacity-10 group-hover:opacity-20 transition-opacity">
-            <Sparkles className="w-12 h-12 text-pink-400" />
+        {/* Inspirational Banner with Smile Face */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#161c2d] p-4 text-center border border-slate-800 shadow-inner group hover:border-pink-500/30 transition-all duration-300">
+          <div className="absolute top-2 right-2 opacity-15 group-hover:opacity-35 transition-opacity">
+            <Sparkles className="w-10 h-10 text-pink-400" />
           </div>
-          <div className="w-10 h-10 mx-auto rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-500 mb-2">
-            <Target className="w-5 h-5" />
+          
+          {/* Smiley Face Design Avatar */}
+          <div className="relative w-12 h-12 mx-auto mb-2 flex items-center justify-center">
+            {/* Glowing blur halo */}
+            <div className="absolute inset-0 rounded-full bg-pink-500/25 blur-md group-hover:bg-pink-500/40 transition-all duration-300" />
+            
+            {/* Circle container */}
+            <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-pink-500/20 via-rose-500/10 to-purple-600/20 border border-pink-500/40 group-hover:border-pink-400/80 flex items-center justify-center text-pink-400 group-hover:text-pink-300 shadow-lg shadow-pink-500/10 group-hover:scale-105 transition-all duration-300">
+              <Smile className="w-6 h-6 stroke-[2.2] group-hover:rotate-6 transition-transform duration-300" />
+              {/* Sweet blush cheeks */}
+              <span className="absolute bottom-2.5 left-2 w-1.5 h-1 rounded-full bg-pink-400/50 blur-[0.5px]" />
+              <span className="absolute bottom-2.5 right-2 w-1.5 h-1 rounded-full bg-pink-400/50 blur-[0.5px]" />
+            </div>
           </div>
-          <p className="font-['Caveat',cursive] text-2xl font-bold text-white tracking-wide leading-tight">
+
+          <p className="font-['Caveat',cursive] text-2xl font-bold text-white tracking-wide leading-tight group-hover:text-pink-50 transition-colors">
             Small Steps<br />Make Big Results
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full mx-auto mt-2" />
