@@ -167,24 +167,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <Sparkles className="w-10 h-10 text-pink-400" />
           </div>
           
-          {/* Smiley Face Design Avatar */}
+          {/* Smiley Face Design Avatar - Bright Shining Yellow */}
           <div className="relative w-12 h-12 mx-auto mb-2 flex items-center justify-center">
-            {/* Glowing blur halo */}
-            <div className="absolute inset-0 rounded-full bg-pink-500/25 blur-md group-hover:bg-pink-500/40 transition-all duration-300" />
+            {/* Bright yellow radiant glowing halo */}
+            <div className="absolute inset-0 rounded-full bg-yellow-400/35 blur-md group-hover:bg-yellow-400/60 transition-all duration-300 animate-pulse" />
             
-            {/* Circle container */}
-            <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-pink-500/20 via-rose-500/10 to-purple-600/20 border border-pink-500/40 group-hover:border-pink-400/80 flex items-center justify-center text-pink-400 group-hover:text-pink-300 shadow-lg shadow-pink-500/10 group-hover:scale-105 transition-all duration-300">
-              <Smile className="w-6 h-6 stroke-[2.2] group-hover:rotate-6 transition-transform duration-300" />
-              {/* Sweet blush cheeks */}
-              <span className="absolute bottom-2.5 left-2 w-1.5 h-1 rounded-full bg-pink-400/50 blur-[0.5px]" />
-              <span className="absolute bottom-2.5 right-2 w-1.5 h-1 rounded-full bg-pink-400/50 blur-[0.5px]" />
+            {/* Circle container with golden yellow border & shine */}
+            <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-yellow-400/25 via-amber-400/20 to-yellow-500/10 border-2 border-yellow-400/80 group-hover:border-yellow-300 flex items-center justify-center text-yellow-300 group-hover:text-yellow-200 shadow-[0_0_15px_rgba(250,204,21,0.45)] group-hover:shadow-[0_0_22px_rgba(250,204,21,0.7)] group-hover:scale-105 transition-all duration-300">
+              <Smile className="w-6 h-6 stroke-[2.4] drop-shadow-[0_0_6px_rgba(253,224,71,0.9)] group-hover:rotate-6 transition-transform duration-300" />
+              {/* Sweet warm blush cheeks */}
+              <span className="absolute bottom-2.5 left-2 w-1.5 h-1 rounded-full bg-amber-400/70 blur-[0.5px]" />
+              <span className="absolute bottom-2.5 right-2 w-1.5 h-1 rounded-full bg-amber-400/70 blur-[0.5px]" />
             </div>
           </div>
 
-          <p className="font-['Caveat',cursive] text-2xl font-bold text-white tracking-wide leading-tight group-hover:text-pink-50 transition-colors">
+          <p className="font-['Caveat',cursive] text-2xl font-bold text-white tracking-wide leading-tight group-hover:text-yellow-100 transition-colors">
             Small Steps<br />Make Big Results
           </p>
-          <div className="w-16 h-1 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full mx-auto mt-2" />
+          <div className="w-16 h-1 bg-gradient-to-r from-yellow-400 via-pink-500 to-rose-400 rounded-full mx-auto mt-2" />
         </div>
 
         {/* User / Admin Access Footer */}
